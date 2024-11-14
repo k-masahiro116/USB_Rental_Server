@@ -1,0 +1,29 @@
+<!-- templates/rentals/user_pc_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>利用PC一覧</title>
+</head>
+<body>
+    <h2>利用PC一覧</h2>
+    <p><a href="{% url 'add_user_pc' %}">利用PCを追加する</a></p>
+    {% if user_pcs %}
+        <ul>
+            {% for pc in user_pcs %}
+                <li>
+                    <strong>製品番号:</strong> {{ pc.serial_number }}<br>
+                    <strong>ウイルス対策のバージョン:</strong> {{ pc.antivirus_version }}<br>
+                    <a href="{% url 'user_pc_edit' pc.id %}">編集</a> |
+                    <a href="{% url 'user_pc_delete' pc.id %}">削除</a>
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>登録された利用PCはありません。</p>
+    {% endif %}
+
+</body>
+{% endblock %}

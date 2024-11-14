@@ -1,0 +1,24 @@
+<!-- templates/rentals/manufacturer_whitelist_form.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>メーカーのホワイトリスト登録</title>
+</head>
+<body>
+    <h2>USBメーカーのホワイトリスト登録</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <fieldset>
+            <legend>新しいメーカーを登録する</legend>
+            {{ manufacturer_form.as_p }}
+            <button type="submit" name="new_manufacturer">新しいメーカーをホワイトリストに追加</button>
+        </fieldset>
+    </form>
+    
+    <p><a href="{% url 'whitelist_list' %}">ホワイトリスト一覧に戻る</a></p>
+</body>
+{% endblock %}

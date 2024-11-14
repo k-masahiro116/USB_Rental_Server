@@ -1,0 +1,24 @@
+<!-- templates/rentals/request_rental_form.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>USBレンタル申請</title>
+</head>
+<body>
+    <h2>USBレンタル申請</h2>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">申請を送信</button>
+    </form>
+    
+    <p><a href="{% url 'usb_list' %}">USBリストに戻る</a></p>
+</body>
+{% endblock %}

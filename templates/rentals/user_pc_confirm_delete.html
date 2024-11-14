@@ -1,0 +1,21 @@
+<!-- templates/rentals/user_pc_confirm_delete.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>利用PC削除</title>
+</head>
+<body>
+    <h2>利用PC削除</h2>
+    
+    <p>この利用PCを削除してもよろしいですか？</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">削除</button>
+    </form>
+    
+    <p><a href="{% url 'user_pc_list' %}">利用PC一覧に戻る</a></p>
+</body>
+{% endblock %}

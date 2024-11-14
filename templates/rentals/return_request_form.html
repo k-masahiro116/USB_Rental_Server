@@ -1,0 +1,25 @@
+<!-- templates/rentals/return_request_form.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>返却申請</title>
+</head>
+<body>
+    <h2>返却申請</h2>
+    
+    <p>返却するUSBデバイス: {{ usb_device.name }}</p>
+    <p>説明: {{ usb_device.description }}</p>
+    <script>
+        console.log("{{usb_devices}}")
+    </script>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">返却申請を送信</button>
+    </form>
+    
+    <p><a href="{% url 'usb_list' %}">USBリストに戻る</a></p>
+</body>
+{% endblock %}

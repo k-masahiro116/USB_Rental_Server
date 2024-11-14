@@ -1,0 +1,23 @@
+<!-- templates/rentals/request_rental.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>USBレンタル申請</title>
+</head>
+<body>
+    <h2>USBレンタル申請</h2>
+    
+    <p>デバイス名: {{ usb_device.name }}</p>
+    <p>説明: {{ usb_device.description }}</p>
+    <p>{% now "Y-m-d" %}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">レンタル申請</button>
+    </form>
+
+    <p><a href="{% url 'usb_list' %}">USBリストに戻る</a></p>
+</body>
+{% endblock %}

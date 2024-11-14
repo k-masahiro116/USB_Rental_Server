@@ -1,0 +1,24 @@
+<!-- templates/rentals/manufacturer_whitelist_list.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>ホワイトリスト一覧</title>
+</head>
+<body>
+    <h2>USBメーカー ホワイトリスト一覧</h2>
+
+    {% if whitelisted_manufacturers %}
+        <ul>
+            {% for entry in whitelisted_manufacturers %}
+                <li>{{ entry.manufacturer.name }} - 登録日時: {{ entry.added_at }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>ホワイトリストに登録されたメーカーはありません。</p>
+    {% endif %}
+    
+    <p><a href="{% url 'whitelist_add' %}">ホワイトリストにメーカーを追加</a></p>
+</body>
+{% endblock %}

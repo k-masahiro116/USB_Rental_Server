@@ -1,0 +1,65 @@
+<!-- templates/rentals/usb_list.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>USBデバイス一覧</title>
+    <style>
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>USBデバイス一覧</h1>
+    <!-- 新規USBデバイス登録リンク -->
+    <p><a href="{% url 'usb_device_create' %}">新規USBデバイスを登録する</a></p>
+    <!-- 警告メッセージの表示 -->
+    {% if overdue_rentals %}
+        <div class="warning">
+            <p>返却期限が過ぎているUSBデバイスがあります。速やかに返却してください。</p>
+            <ul>
+                {% for rental in overdue_rentals %}
+                    <li>{{ rental.usb_device.name }}（返却期日: {{ rental.end_date }}）</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- USBデバイスリストの表示 -->
+    <ul>
+        {% for usb in usb_devices %}
+            <li>
+                デバイス名: <strong><a href="{% url 'usb_device_detail' usb.id %}">{{ usb.name }}</a></strong><br>
+                説明: {{ usb.description }} <br>
+                状態: 
+                {% if usb.is_available %}
+                    <span style="color: green;">未レンタル</span>
+                    
+                    <!-- 未レンタル状態の場合はレンタル申請ボタンを表示 -->
+                    <br><a href="{% url 'request_rental' usb.id %}">レンタル申請</a>
+                
+                {% else %}
+                    <span style="color: red;">レンタル済み</span>
+                    
+                    <!-- レンタル済みの場合は返却申請ボタンを表示 -->
+                    <br><a href="{% url 'return_usb' usb.id %}">返却申請</a>
+
+                    {% for rental in usb.rentalrequest_set.all %}
+                        {% if rental.user == request.user and not rental.is_returned %}
+                            <a href="{% url 'extension_request' rental.id %}">延長申請</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </li>
+            <hr>
+        {% empty %}
+            <li>利用可能なUSBデバイスはありません。</li>
+        {% endfor %}
+    </ul>
+</body>
+
+{% endblock %}

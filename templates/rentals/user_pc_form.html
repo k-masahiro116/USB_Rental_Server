@@ -1,0 +1,20 @@
+<!-- templates/rentals/user_pc_form.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>利用PC編集</title>
+</head>
+<body>
+    <h2>利用PC編集</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">更新</button>
+    </form>
+    
+    <p><a href="{% url 'user_pc_list' %}">利用PC一覧に戻る</a></p>
+</body>
+{% endblock %}

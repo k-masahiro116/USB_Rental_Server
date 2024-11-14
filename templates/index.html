@@ -1,0 +1,34 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>ホームページ</title>
+</head>
+<body>
+    <h1>USBレンタル管理システム</h1>
+
+    {% if user.is_authenticated %}
+        <p>{{ user.username }}さん、ようこそ！</p>
+        
+        <!-- USBリストの閲覧リンク -->
+        <p><a href="{% url 'whitelist_list' %}">USBメーカーのホワイトリスト一覧</a></p>
+        <p><a href="{% url 'usb_list' %}">USBリストを閲覧する</a></p>
+        <p><a href="{% url 'user_pc_list' %}">利用PCリストを閲覧する</a></p>
+        
+        <!-- ログアウトボタン -->
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">ログアウト</button>
+        </form>
+    {% else %}
+        <!-- ログインリンク -->
+        <p><a href="{% url 'login' %}">ログイン</a></p>
+        
+        <!-- サインアップリンク -->
+        <p><a href="{% url 'signup' %}">新規アカウントを作成する</a></p>
+    {% endif %}
+</body>
+</html>
+{% endblock %}

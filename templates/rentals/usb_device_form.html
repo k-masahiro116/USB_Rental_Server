@@ -1,0 +1,20 @@
+<!-- templates/rentals/usb_device_form.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>USBデバイス登録</title>
+</head>
+<body>
+    <h2>USBデバイスの新規登録</h2>
+    <form method="post" action="{% url 'usb_device_create' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">登録</button>
+    </form>
+    <p><a href="{% url 'usb_list' %}">USBデバイス一覧に戻る</a></p>
+</body>
+
+{% endblock %}

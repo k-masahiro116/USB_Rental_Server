@@ -1,0 +1,22 @@
+<!-- templates/rentals/extension_request_form.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>返却期限延長申請</title>
+</head>
+<body>
+    <h2>返却期限延長申請</h2>
+    
+    <p>現在の返却期日: {{ rental_request.end_date }}</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">延長申請を送信</button>
+    </form>
+    
+    <p><a href="{% url 'usb_list' %}">USBリストに戻る</a></p>
+</body>
+{% endblock %}

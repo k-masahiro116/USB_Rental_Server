@@ -1,0 +1,20 @@
+<!-- templates/rentals/add_user_pc.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>PC情報の追加</title>
+</head>
+<body>
+    <h2>利用PCの追加</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">PC情報を追加</button>
+    </form>
+    
+    <p><a href="{% url 'usb_list' %}">USBリストに戻る</a></p>
+</body>
+{% endblock %}

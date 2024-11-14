@@ -1,0 +1,20 @@
+<!-- templates/rentals/usb_device_form.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>USBデバイス編集</title>
+</head>
+<body>
+    <h2>USBデバイス編集</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">更新</button>
+    </form>
+    
+    <p><a href="{% url 'usb_device_detail' pk=object.pk %}">USBデバイス詳細に戻る</a></p>
+</body>
+{% endblock %}

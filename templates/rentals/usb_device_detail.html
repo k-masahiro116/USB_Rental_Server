@@ -1,0 +1,53 @@
+<!-- templates/rentals/usb_device_detail.html -->
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>USBデバイス詳細</title>
+</head>
+<body>
+    <h2>USBデバイス詳細情報</h2>
+    
+    <p><strong>デバイス名:</strong> {{ usb_device.name }}</p>
+    <p><strong>メーカー:</strong> {{ usb_device.manufacturer.name }}</p>
+    <p><strong>容量:</strong> {{ usb_device.capacity|intcomma }} バイト</p>
+    <p><strong>購入日:</strong> {{ usb_device.purchase_date }}</p>
+
+    {% if current_rental %}
+        <h3>現在のレンタル情報</h3>
+        <p><strong>現在の所有者:</strong> {{ current_rental.user.username }}</p>
+        <p><strong>レンタル開始日:</strong> {{ current_rental.start_date }}</p>
+        <p><strong>返却期日:</strong> {{ current_rental.end_date }}</p>
+    {% else %}
+        <p><strong>状態:</strong> 未レンタル</p>
+    {% endif %}
+
+    <h3>レンタル履歴</h3>
+    {% if rental_history %}
+        <ul>
+            {% for rental in rental_history %}
+                <li>
+                    <strong>ユーザー:</strong> {{ rental.user.username }}<br>
+                    <strong>レンタル開始日:</strong> {{ rental.start_date }}<br>
+                    <strong>返却期日:</strong> {{ rental.end_date }}<br>
+                    <strong>返却済み:</strong> {{ rental.is_returned|yesno:"はい,いいえ" }}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>このデバイスにはレンタル履歴がありません。</p>
+    {% endif %}
+
+    <p>
+        <a href="{% url 'usb_device_edit' usb_device.id %}">編集</a> |
+        <a href="{% url 'usb_device_delete' usb_device.id %}">削除</a>
+    </p>
+
+    <p><a href="{% url 'usb_list' %}">USBデバイス一覧に戻る</a></p>
+</body>
+</html>
+
+{% endblock %}
